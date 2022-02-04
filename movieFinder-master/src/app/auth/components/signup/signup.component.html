@@ -1,0 +1,110 @@
+<div class="camera-icon"><i class="fas fa-video fa-3x"></i></div>
+<mat-card-title>
+  REGISTER to <span class="title">MovieFinder</span>
+</mat-card-title>
+<mat-divider></mat-divider>
+<mat-card-content>
+  <form novalidate [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <p>
+      <mat-form-field appearance="outline" color="warn">
+        <mat-label class="label">Username</mat-label>
+        <input type="string"
+               matInput
+               placeholder="choose a username"
+               formControlName="username" />
+               <mat-icon matSuffix><i class="fas fa-user"></i></mat-icon>
+               <mat-error class="error" *ngIf="form.username.hasError('required')">
+                Please provide an <strong>username.</strong>
+               </mat-error>
+               <mat-error class="error" *ngIf="form.username.hasError('userNameExists')">
+                <i class="fas fa-exclamation-circle"></i> This Username is taken. Try another.
+               </mat-error>
+      </mat-form-field>
+      <mat-error class="pending" *ngIf="form.username.pending">
+        Pending...<i class="fas fa-spinner fa-spin"></i>
+      </mat-error>
+      <mat-error class="valid" *ngIf="form.username.valid">
+        <i class="fas fa-check-circle"></i> Valid Username.
+      </mat-error>
+      <mat-hint>NOTE: <strong>Admin, John, Alex, Peter</strong> are already taken. Try them to check Async Validator.</mat-hint>
+    </p>
+    <hr>
+    <p>
+      <mat-form-field appearance="outline" color="warn">
+        <mat-label class="label">Email Address</mat-label>
+        <input type="string"
+               matInput
+               placeholder="type your email"
+               formControlName="email" />
+               <mat-icon matSuffix><i class="fas fa-envelope"></i></mat-icon>
+               <mat-error class="error" *ngIf="form.email.hasError('required')">
+                Please provide an <strong>email.</strong>
+               </mat-error>
+               <mat-error class="error" *ngIf="form.email.hasError('pattern')">
+                Please provide a <strong>valid email address.</strong>
+               </mat-error>
+               <mat-error class="error" *ngIf="form.email.hasError('emailExists')">
+                <i class="fas fa-exclamation-circle"></i> This email address is taken. Try another.
+               </mat-error>
+      </mat-form-field>
+      <mat-error class="pending" *ngIf="form.email.pending">
+        Pending...<i class="fas fa-spinner fa-spin"></i>
+      </mat-error>
+      <mat-error class="valid" *ngIf="form.email.valid">
+        <i class="fas fa-check-circle"></i> Valid email.
+      </mat-error>
+      <mat-hint>NOTE: <strong>admin@mail.com, john@mail.com</strong> are already taken. Try them to check Async Validator.</mat-hint>
+    </p>
+    <hr>
+    <p>
+      <mat-form-field appearance="outline" color="warn">
+        <mat-label class="label">Password</mat-label>
+        <input type="password"
+               matInput
+               #input
+               placeholder="type your password (min 8 characters)"
+               formControlName="password"/>
+               <mat-icon matSuffix><i class="fas fa-key"></i></mat-icon>
+               <mat-error class="error" *ngIf="form.password.hasError('required')">
+                 Password is <strong>required.</strong>
+               </mat-error>
+               <mat-error class="error" *ngIf="form.password.hasError('minlength')">
+                Password must be at least <strong>8 characters. ({{input.value?.length || 0}}/8)</strong>
+               </mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline" color="warn">
+        <mat-label class="label">Repeat Password</mat-label>
+        <input type="password"
+               matInput
+               placeholder="repeat your password"
+               formControlName="confirmPassword"/>
+               <mat-icon matSuffix><i class="fas fa-key"></i></mat-icon>
+               <mat-error class="error" *ngIf="form.confirmPassword.invalid">
+                 Passwords don't <strong>match.</strong>
+               </mat-error>
+      </mat-form-field>
+    </p>
+    <div class="terms">
+      <mat-checkbox formControlName="acceptTerms"></mat-checkbox>
+      I accept the
+      <span class="policy" (click)="openTermsDialog()">Terms of Service and Privacy Policy.</span>
+    </div>
+
+    <button [disabled]="loading || !registerForm.valid"
+            mat-raised-button
+            class="action-btn"
+            type="submit"
+            color="warn">
+            <i *ngIf="loading" class="fas fa-spinner fa-spin fa-lg fa-fw"></i>
+            Sign Up
+    </button>
+    <p>
+      <a [routerLink]="['/auth']">
+        <i class="fas fa-chevron-left icon"></i>Back to Login
+      </a>
+    </p>
+
+  </form >
+</mat-card-content>

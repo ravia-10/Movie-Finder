@@ -1,0 +1,9 @@
+{
+	"data": {
+		"id": 1,
+		"username": "string",
+		"email": "string",
+		"password": "string",
+		"confirmPassword": "string"
+	}
+}

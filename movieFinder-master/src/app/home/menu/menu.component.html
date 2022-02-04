@@ -1,0 +1,101 @@
+<div class="alternate-theme">
+  <mat-toolbar color="primary" class="mat-elevation-z4">
+
+    <button mat-button class="title" routerLink='/welcome'>{{pageTitle}}</button>
+    <span *ngIf="mobileQuery.matches ? false : true">
+         <button mat-button
+            routerLinkActive='active'
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink='/movies'>
+            <i class="fas fa-film"></i>
+            Movie List
+        </button>
+        <button mat-button
+            routerLinkActive='active'
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink='/movies/search'>
+            <i class="fas fa-search"></i>
+            Advanced Search
+        </button>
+        <button mat-button
+            routerLinkActive='active'
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink='/movies/myList'>
+            <i class="fas fa-person-booth"></i>
+            My List
+        </button>
+        <button mat-raised-button
+            *ngIf="isAdmin"
+            color="warn"
+            routerLinkActive='active'
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink='/admin'>
+            <i class="fas fa-user-shield"></i>
+            Admin Panel
+        </button>
+    </span>
+
+
+    <span class="spacer"></span>
+    <ng-container *ngIf="user$ | async as user; else login">
+        <span class="welcome">Welcome <i class="username">{{ user.userName }}</i></span>
+    </ng-container>
+    <ng-template #login>
+      <button mat-raised-button color="warn" routerLink="/auth">
+        <i class="fas fa-sign-in-alt"></i>
+        <span class="menu-item">Log In</span>
+      </button>
+    </ng-template>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <i class="fas fa-chevron-circle-down fa-2x"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+        <span *ngIf="mobileQuery.matches ? true : false">
+                <button mat-menu-item
+                        *ngIf="isAdmin"
+                        routerLinkActive='active'
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        routerLink='/admin'>
+                        <i class="fas fa-user-shield"></i>
+                        <span class="menu-item">Admin Panel</span>
+                </button>
+                <button mat-menu-item
+                        routerLinkActive='active'
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        routerLink='/movies'>
+                        <i class="fas fa-film"></i>
+                        <span class="menu-item">Movie List</span>
+                </button>
+                <button mat-menu-item
+                        routerLinkActive='active'
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        routerLink='/movies/search'>
+                        <i class="fas fa-search"></i>
+                        <span class="menu-item">Advanced Search</span>
+                </button>
+                <button mat-menu-item
+                        routerLinkActive='active'
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        routerLink='/movies/myList'>
+                        <i class="fas fa-person-booth"></i>
+                        <span class="menu-item">My List</span>
+                </button>
+        </span>
+        <a target="_blank" class="git-btn" href="https://github.com/ravia-10">
+            <button mat-menu-item>
+                <i class="fab fa-github-alt"></i>
+                <span class="menu-item">GitHub</span>
+            </button>
+        </a>
+
+        <button mat-menu-item *ngIf="user$ | async" (click)="logOut()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="menu-item">Log Out</span>
+        </button>
+    </mat-menu>
+  </mat-toolbar>
+</div>
+
+
+

@@ -1,0 +1,92 @@
+<form novalidate autocomplete="off">
+  <fieldset>
+        <legend>More Movie Info</legend>
+
+        <p>
+          <label>Pick Release Date:</label>
+          <span style="display: flex;">
+            <input id="releaseDate"
+                   name="releaseDate"
+                   placeholder="Release Date"
+                   [matDatepicker]="picker"
+                   [(ngModel)]="movie.releaseDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </span>
+        </p>
+
+        <p>
+            <label>Category:</label>
+            <input id="categoryId"
+                   type="text"
+                   placeholder="Category (required)"
+                   required
+                   minlength="3"
+                   [(ngModel)]="movie.category"
+                   name="category"
+                   #categoryVar="ngModel"
+                   [ngClass]="{'is-invalid': (categoryVar.touched || categoryVar.dirty || movie.id !== 0) && !categoryVar.valid }" />
+
+            <span class="invalid-feedback">
+                <span *ngIf="categoryVar.errors?.required">
+                    A category must be entered.
+                </span>
+                <span *ngIf="categoryVar.errors?.minlength">
+                    The category must be at least 3 characters in length.
+                </span>
+            </span>
+        </p>
+
+        <p>
+          <label>Select MPAA rating:</label>
+          <app-select-input
+            [options] = "['PG-13', 'R', 'K-17', 'K-13', 'PG-13', 'A-18', 'NC-17', 'PG', 'K-16', 'K-8', 'K-12']"
+            [(option)]="movie.mpaa">
+          </app-select-input>
+          <span class="invalid-feedback">
+            <span *ngIf="!movie.mpaa">
+                    Please select MPAA rating.
+            </span>
+          </span>
+        </p>
+
+        <p>
+            <label>Search Tags:</label>
+              <span style="display: flex;">
+                    <input id="tagsId"
+                         type="text"
+                         placeholder="Search keywords separated by commas"
+                         minlength="3"
+                         [(ngModel)]="newTags"
+                         name="tags"
+                         #tagVar="ngModel"
+                         [ngClass]="{'is-invalid': (tagVar.touched || tagVar.dirty || movie.id !== 0) && !tagVar.valid }" />
+                    <button
+                        mat-icon-button
+                        (click)="addTags()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </span>
+            <span class="invalid-feedback">
+                <span *ngIf="tagVar.errors?.minlength">
+                    The search tag must be at least 3 characters in length.
+                </span>
+            </span>
+        </p>
+
+        <p>
+            <mat-chip-list>
+                    <mat-chip *ngFor="let tag of movie.tags; let i = index"
+                              (removed)="removeTag(i)"
+                              [color]="i % 2 == 0 ? 'warn' : 'accent'"
+                              selected>
+                     {{tag}}
+                     <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+            </mat-chip-list>
+        </p>
+
+
+
+  </fieldset>
+</form>

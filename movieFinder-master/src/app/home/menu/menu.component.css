@@ -1,0 +1,43 @@
+toolbar{
+  position: relative;
+  height: 40px;
+  min-height: 40px;
+  z-index: 10;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title{
+  font-family: 'Poller One', cursive;
+  color: #6C63FF;
+  font-size: 18px;
+}
+
+.active{
+  color: #6C63FF;
+  font-weight: bold;
+}
+
+.menu-item{
+  margin-left: 8px;
+}
+
+.username{
+  font-weight: bold;
+  color: #6C63FF;
+}
+
+.git-btn{
+  text-decoration: none;
+}
+
+.welcome{
+  font-size: 15px;
+}
+
+.mat-menu-item:hover {
+  background: #6C63FF;
+  color: aliceblue;
+}
